@@ -1,0 +1,92 @@
+// importujemy sobie nasze scssy poprzez @import './'
+@import './colors';
+@import './components';
+@import './mixsins';
+
+// Standardowa kacja przed zrobiebiem strony - nasze RESET
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+// Zawsze ustawiam taki font size - bo chce abys trona byla responsywna , aby byla to musze uzywac REM , EM - REM na FontsiZe , a EM na reszte , czyli np padddingi
+html {
+	font-size: 62.5%;
+
+	// smooth: Ta wartość zapewnia płynne przewijanie, co oznacza, że przeglądarka będzie starać się wygładzić ruch podczas przewijania, co daje bardziej naturalne i przyjemne wrażenia dla użytkownika.
+	scroll-behavior: smooth;
+}
+
+// ustawiam sobie główną czcionkę którą dodałem sobie w html ,, oraz jej wielkosć
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1.6rem;
+}
+
+// NAVI
+
+// chce abny navi byla po prawej stronie , wiec musze uzyć position fixed
+
+.burger-btn {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	padding: 1em;
+	background: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	// z index daje na 10100 bo musi byc zawsze na wieschu
+	z-index: 1000;
+	
+
+	// Selektor :focus w CSS jest pseudo-klasą, która aplikuje styl do elementu, który aktualnie znajduje się w fokuspunkcie (czyli element, który jest aktywnie wybrany przez użytkownika, na przykład kliknięty myszą lub zaznaczony za pomocą klawiatury). Jest to często używane w celu wizualnego oznaczenia aktywnego elementu interaktywnego na stronie internetowej.
+
+	// outline: none; aby usunąć domyślny kontur elementu, co czasami jest stosowane dla lepszego wyglądu interfejsu użytkownika, ale może też zaburzać dostępność, więc należy zastosować z rozwagą.
+	&:focus {
+		outline: none;
+		border: 1px solid rgba(255, 255, 255, .5);
+		border-radius: 8px;
+	}
+	// ciągle określam się do przycisku button - dodaje jemu hovera , dla 1 ,2 i 3 kreski - jako całemu kontenerowi - po najechaniu ma sie powiekszac
+	&:hover {
+		.burger-btn__bars::after,
+		.burger-btn__bars::before {
+			width: 100%;
+		}
+	}
+
+	&__box {
+		position: relative;
+		width: 40px;
+		height: 30px;
+		
+	}
+
+	// edytujemy pojednyncze kreski naszego burger ikona. Pamietajmy , że zawsze gdy używamy AFTER , BEFORE musimy sobie wpisac  wcss content ' ' .
+
+	// __bars - jest to kreska nr 1 , bars::before to kreska druga , a bars::after to ostatnia kreska
+	&__bars,
+	&__bars::after,
+	&__bars::before {
+		@include burgerBtn;
+	}
+
+	&__bars {
+		width: 100%;
+		
+
+		&::after {
+			top: 13px;
+			width: 60%;
+		}
+
+		&::before {
+			top: 27px;
+			width: 30%;
+		}
+	}
+}

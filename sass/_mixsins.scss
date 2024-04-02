@@ -1,0 +1,15 @@
+// nazywamy sobbie grupę klas , które beda mieć wspolne właściwości - np teraz burgerbtn . Dodaje się mixiny do np różnych przycisków , aby definiować to jako jedną klase , a nie odnosić się do każdej pokolei. 
+
+// Aby później wywołać tego naszego mixina , musimy wpisać w main.css : "@include nazwa
+
+@mixin burgerBtn {
+    position: absolute;
+    right: 0;
+    width: 3px;
+    content: '';
+    // background-color: $pure-white;
+    background-color: red;
+    // po najechaniu bedziemy chceli  aby nasza wysokosc ikonki wzrastała , wiec dodaje od razu tutaj transition
+    transition: width .3s;
+
+}
