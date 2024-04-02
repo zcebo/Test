@@ -41,14 +41,13 @@ body {
 	cursor: pointer;
 	// z index daje na 10100 bo musi byc zawsze na wieschu
 	z-index: 1000;
-	
 
 	// Selektor :focus w CSS jest pseudo-klasą, która aplikuje styl do elementu, który aktualnie znajduje się w fokuspunkcie (czyli element, który jest aktywnie wybrany przez użytkownika, na przykład kliknięty myszą lub zaznaczony za pomocą klawiatury). Jest to często używane w celu wizualnego oznaczenia aktywnego elementu interaktywnego na stronie internetowej.
 
 	// outline: none; aby usunąć domyślny kontur elementu, co czasami jest stosowane dla lepszego wyglądu interfejsu użytkownika, ale może też zaburzać dostępność, więc należy zastosować z rozwagą.
 	&:focus {
 		outline: none;
-		border: 1px solid rgba(255, 255, 255, .5);
+		border: 1px solid rgba(255, 255, 255, 0.5);
 		border-radius: 8px;
 	}
 	// ciągle określam się do przycisku button - dodaje jemu hovera , dla 1 ,2 i 3 kreski - jako całemu kontenerowi - po najechaniu ma sie powiekszac
@@ -63,7 +62,6 @@ body {
 		position: relative;
 		width: 40px;
 		height: 30px;
-		
 	}
 
 	// edytujemy pojednyncze kreski naszego burger ikona. Pamietajmy , że zawsze gdy używamy AFTER , BEFORE musimy sobie wpisac  wcss content ' ' .
@@ -77,7 +75,6 @@ body {
 
 	&__bars {
 		width: 100%;
-		
 
 		&::after {
 			top: 13px;
@@ -89,4 +86,17 @@ body {
 			width: 30%;
 		}
 	}
+}
+
+.burger-btn__bars,
+.burger-btn__bars::after,
+.burger-btn__bars::before {
+	position: absolute;
+	right: 0;
+	width: 3px;
+	content: '';
+	// background-color: $pure-white;
+	background-color: red;
+	// po najechaniu bedziemy chceli  aby nasza wysokosc ikonki wzrastała , wiec dodaje od razu tutaj transition
+	transition: width 0.3s;
 }

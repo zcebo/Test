@@ -58,4 +58,15 @@ body {
 .burger-btn__bars::before {
   top: 27px;
   width: 30%;
+}
+
+.burger-btn__bars,
+.burger-btn__bars::after,
+.burger-btn__bars::before {
+  position: absolute;
+  right: 0;
+  width: 3px;
+  content: "";
+  background-color: red;
+  transition: width 0.3s;
 }/*# sourceMappingURL=main.css.map */
