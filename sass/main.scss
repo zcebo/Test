@@ -27,7 +27,7 @@ body {
 	align-items: center;
 	flex-direction: column;
 	width: 100%; /* Pełna szerokość */
-	max-width: 1920px; /* Maksymalna szerokość */
+	min-width: 1200px; /* Maksymalna szerokość */
 	margin: 0 auto; /* Wyśrodkowanie */
 }
 
@@ -39,19 +39,19 @@ body {
 	display: flex;
 	overflow: hidden;
 	padding: 1px;
-	width: 100vw; /* Pełna szerokość */
-	max-width: 1920px; /* Maksymalna szerokość */
+	width: 100%; /* Pełna szerokość */
+	min-width: 1200px; /* Maksymalna szerokość */
 	margin: 0 auto; /* Wyśrodkowanie */
 	height: 70vh;
 	justify-content: center;
 	flex-direction: column;
 	text-align: center;
-	background-color: rgba(31, 97, 136, 0.433);
+	background-color: rgba(31, 97, 136, 0.656);
 }
 
 .hero-head {
 	width: 100%;
-	max-width: 1920px;
+	min-width: 1200px;
 	top: 0px;
 	left: 0;
 	object-fit: cover;
@@ -143,7 +143,7 @@ body {
 	content: ''; //przy before i after zawsze musi byc content '' - bez tego nie pojawi nam się ostylowany div
 	@include burgerBtn;
 	left: 0;
-	transition: transform 0.3s ease-in-out; // tu dodałen że nasze 2 linie górna i dolna po kliknięciu również mają animacje opoznienia
+	transition: transform 0.4s ease-in-out; // tu dodałen że nasze 2 linie górna i dolna po kliknięciu również mają animacje opoznienia
 }
 
 .burger-btn__bars::before {
@@ -154,6 +154,7 @@ body {
 .burger-btn__bars::after {
 	content: '';
 	top: 10px;
+	
 }
 
 // *******NAVI PO KLIKNIECIU W BURGERA *********
@@ -161,7 +162,7 @@ body {
 // tutaj zrobilem ze po activ , czyli po kliknieciu nasza srodkowa kreska znika
 .burger-btn--active .burger-btn__bars {
 	background-color: transparent;
-	transition: transform 0.3s 0.1s ease-in-out;
+	transition: transform 0.4s 0.4s ease-in-out;
 }
 
 .burger-btn--active {
@@ -172,21 +173,25 @@ body {
 // tu bedzie akcja po hoverze , ze po kliknieciu górna kreska i dolna kreska beda się rozjeżdżać równo w górę i w dół i dodatkowo chce aby na srodku sie skrzyzowaly. UWAGA ! NAJPIERW MUSIMY PRZENOSIC NA OSI Y (TRANSLATEY) , A POTEM OBRACAC
 .burger-btn--active .burger-btn__bars::before {
 	transform: translateY(10px) rotate(45deg);
+	@include afterburgerbtn;
 }
 
 .burger-btn--active .burger-btn__bars::after {
 	transform: translateY(-10px) rotate(-45deg);
+	@include afterburgerbtn;
+
+	
 }
 
 .burger-btn__bars {
-	transition: background-color 0.5s 0.3s ease-in-out; // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
+	transition: background-color 0.5s 0.4s ease-in-out; // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
 }
 
 // UL LISTA NAVI
 .navi {
-	height: 66vh;
+	height: 70vh;
 	width: 500px;
-	background-color: rgba(255, 255, 255, 0.895);
+	background-color: rgba(255, 255, 255, 0.736);
 	position: absolute;
 	top: 0;
 	left: 5px;
@@ -195,15 +200,18 @@ body {
 	opacity: 0;
 
 	// Dodałem to aby nawi nie była widoczna , bo nie chce tego na stronie , dopiero po kliknieciu w Burgera. -250 px dlategp ze nasz width (szerokosc ma 250)
-	transform: translateX(1400px);
+	transform: translateX(-1400px);
 
 	// robimy animacje na opacity , ze ma się pokawiać w .3s - OPACITY ustawiam po Kliknięciu na 1 czyli - navi--active
 	transition: opacity 0.4s 0.1s ease;
+
 }
 
+// ustawiłem aby moja navi nie wychodziło w prawo , więc musi mieć 1010px . Gdyby było wiecej , to by poszerzało mi stronę i robiło białe pole
 .navi--active {
-	transform: translateX(1400px);
+	transform: translateX(1010px);
 	opacity: 1;
+	z-index: 1;
 }
 
 .navi-list {
