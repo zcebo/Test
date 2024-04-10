@@ -26,36 +26,62 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	width: 100%; /* Pełna szerokość */
+	max-width: 1920px; /* Maksymalna szerokość */
+	margin: 0 auto; /* Wyśrodkowanie */
 }
 
-// Sekcja head - zdjęcie + napis + burgericon
+// Sekcja head - zdjęcie + napis + burgericon ---> JAK WIDAĆ NIE DODAŁEM TUTAJ ZDJĘCIA , DOPIERO W SEKCJI ::BEFORE - > PONIEWAŻ  NIE CHCIAŁEM ABY PRZY ZMIANIE ROZMIARU EKRANU POKAZYWAŁA SIĘ SEKCJA GHEADER , CZYLI TŁO POD SPODEM . CHCIAŁEM ABY WRAZ ZE ZMIANA OKNA ZMIENIAŁ SIĘ ROZMIAR TŁA POD SPODEM
+
 .header-section {
 	position: relative;
+
 	display: flex;
 	overflow: hidden;
 	padding: 1px;
-	width: 1920px;
-	height: 610px;
+	width: 100vw; /* Pełna szerokość */
+	max-width: 1920px; /* Maksymalna szerokość */
+	margin: 0 auto; /* Wyśrodkowanie */
+	height: 70vh;
 	justify-content: center;
 	flex-direction: column;
 	text-align: center;
-
 	background-color: rgba(31, 97, 136, 0.433);
 }
 
 .hero-head {
-	background-image: url(/img/island-large.jpg);
 	width: 100%;
-	display: block;
-	position: relative;
+	max-width: 1920px;
+	top: 0px;
+	left: 0;
+	object-fit: cover;
+	position: absolute;
 	background-repeat: no-repeat;
 	background-size: cover; // rozciagniecie obrazka na całą szerokość
 	background-position: center calc(50% + -150px); // wycentrowałem + dodalem opcje przesunięcia zdjęcia wewnątrz kontenera tak by pokazywało to co chce
 	background-attachment: scroll; //zrobiłem aby podczas przewijanaia strony się nie ruszało - gdybym dał fixed to wtedy przewijalo by sie razem ze strona
 	z-index: -100;
+	max-height: 610px;
+
 	height: 100%;
 }
 
+.header-section::before {
+	content: ''; /* Dodaj pustą zawartość */
+
+	position: absolute; /* Ustaw pozycję tła */
+	top: 0; /* Wyśrodkuj tło w pionie */
+	left: 0; /* Wyśrodkuj tło w poziomie */
+	width: 100%; /* Ustaw szerokość tła jako 100% szerokości kontenera */
+	height: 100%; /* Ustaw wysokość tła jako 100% wysokości kontenera */
+	background-image: url('/img/island-large.jpg'); /* Ustaw tło */
+	background-size: 100% 100%; /* Dopasuj tło do kontenera */
+	z-index: -1000;
+	background-repeat: no-repeat;
+	background-position: center; /* Ustaw tło za obrazem */
+}
+
+// BTN ******************
 .btn-offers {
 	position: absolute;
 	margin-top: 400px;
