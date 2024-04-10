@@ -1,7 +1,7 @@
 // importujemy sobie nasze scssy poprzez @import './'
-@import './colors';
-@import './components';
-@import './mixsins';
+@use './colors' as *;
+@use './components' as *;
+@use './mixins' as *;
 
 // Standardowa kacja przed zrobiebiem strony - nasze RESET
 
@@ -15,8 +15,6 @@
 
 // Zawsze ustawiam taki font size - bo chce abys trona byla responsywna , aby byla to musze uzywac REM , EM - REM na FontsiZe , a EM na reszte , czyli np padddingi
 html {
-	font-size: 62.5%;
-
 	// smooth: Ta wartość zapewnia płynne przewijanie, co oznacza, że przeglądarka będzie starać się wygładzić ruch podczas przewijania, co daje bardziej naturalne i przyjemne wrażenia dla użytkownika.
 	scroll-behavior: smooth;
 }
@@ -24,79 +22,171 @@ html {
 // ustawiam sobie główną czcionkę którą dodałem sobie w html ,, oraz jej wielkosć
 body {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 1.6rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
-// NAVI
+// Sekcja head - zdjęcie + napis + burgericon
+.header-section {
+	position: relative;
+	display: flex;
+	overflow: hidden;
+	padding: 1px;
+	width: 1920px;
+	height: 610px;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
 
-// chce abny navi byla po prawej stronie , wiec musze uzyć position fixed
+	background-color: rgba(31, 97, 136, 0.433);
+}
 
+.hero-head {
+	background-image: url(/img/island-large.jpg);
+	width: 100%;
+	display: block;
+	position: relative;
+	background-repeat: no-repeat;
+	background-size: cover; // rozciagniecie obrazka na całą szerokość
+	background-position: center calc(50% + -150px); // wycentrowałem + dodalem opcje przesunięcia zdjęcia wewnątrz kontenera tak by pokazywało to co chce
+	background-attachment: scroll; //zrobiłem aby podczas przewijanaia strony się nie ruszało - gdybym dał fixed to wtedy przewijalo by sie razem ze strona
+	z-index: -100;
+	height: 100%;
+}
+
+.btn-offers {
+	position: absolute;
+	margin-top: 400px;
+	// dodajac left 50% + plus transform na osi X - no bo lewo i prawo to oś  X wysrodkowalem nasz przycisk
+	left: 50%;
+	transform: translateX(-50%);
+	width: 150px;
+	background-color: $light-white;
+	color: black;
+	font-size: 20px;
+	border: 1px solid $light-white;
+	border-radius: 8px;
+	padding: 10px;
+}
+
+// **************NAVI****************
+
+.burger-btn, .navi{
+	transition: transform .3s .2s ease-in-out;
+}
 .burger-btn {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	padding: 1em;
-	background: none;
-	border: 1px solid transparent;
+	position: absolute;
+	padding: 10px;
+	display: inline-block;
 	cursor: pointer;
-	// z index daje na 10100 bo musi byc zawsze na wieschu
-	z-index: 1000;
-
-	// Selektor :focus w CSS jest pseudo-klasą, która aplikuje styl do elementu, który aktualnie znajduje się w fokuspunkcie (czyli element, który jest aktywnie wybrany przez użytkownika, na przykład kliknięty myszą lub zaznaczony za pomocą klawiatury). Jest to często używane w celu wizualnego oznaczenia aktywnego elementu interaktywnego na stronie internetowej.
-
-	// outline: none; aby usunąć domyślny kontur elementu, co czasami jest stosowane dla lepszego wyglądu interfejsu użytkownika, ale może też zaburzać dostępność, więc należy zastosować z rozwagą.
-	&:focus {
-		outline: none;
-		border: 1px solid rgba(255, 255, 255, 0.5);
-		border-radius: 8px;
-	}
-	// ciągle określam się do przycisku button - dodaje jemu hovera , dla 1 ,2 i 3 kreski - jako całemu kontenerowi - po najechaniu ma sie powiekszac
-	&:hover {
-		.burger-btn__bars::after,
-		.burger-btn__bars::before {
-			width: 100%;
-		}
-	}
-
-	&__box {
-		position: relative;
-		width: 40px;
-		height: 30px;
-	}
-
-	// edytujemy pojednyncze kreski naszego burger ikona. Pamietajmy , że zawsze gdy używamy AFTER , BEFORE musimy sobie wpisac  wcss content ' ' .
-
-	// __bars - jest to kreska nr 1 , bars::before to kreska druga , a bars::after to ostatnia kreska
-	&__bars,
-	&__bars::after,
-	&__bars::before {
-		@include burgerBtn;
-	}
-
-	&__bars {
-		width: 100%;
-
-		&::after {
-			top: 13px;
-			width: 60%;
-		}
-
-		&::before {
-			top: 27px;
-			width: 30%;
-		}
-	}
+	background-color: transparent;
+	border: none;
+	margin: 0;
+	top: 30px;
+	right: 20px;
 }
 
-.burger-btn__bars,
-.burger-btn__bars::after,
-.burger-btn__bars::before {
+// nadaje wymiary naszego hamburgera - pozycjonuje relatywnie , poniewaz dzieci naszego Boxa "KRESKI" (BARS) beda pozycjonowane absolitnie
+.burger-btn__box {
+	width: 40px;
+	height: 24px;
+	display: inline-block;
+	position: relative;
+	z-index: 10;
+}
+
+// paski, nr 1 - span , nr 2 - after , nr 3- before
+
+.burger-btn__bars {
 	position: absolute;
 	right: 0;
-	width: 3px;
-	content: '';
-	// background-color: $pure-white;
-	background-color: red;
-	// po najechaniu bedziemy chceli  aby nasza wysokosc ikonki wzrastała , wiec dodaje od razu tutaj transition
-	transition: width 0.3s;
+	top: 50%;
+	transition: background-color .5s .3s ease-in-out;  // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
+
+	transform: translateY(-50%);
+	// INCLUDE TO ZAMIESZCZANIE NASZYCH USTAWIEN DLA DANEJ SEKCJI , KTROA UTWORZYLISMY W MIXIN
+	@include burgerBtn;
 }
+
+.burger-btn__bars::before, .burger-btn__bars::after {
+	content: ''; //przy before i after zawsze musi byc content '' - bez tego nie pojawi nam się ostylowany div
+	@include burgerBtn;
+	left: 0;
+	transition: transform .3s ease-in-out; // tu dodałen że nasze 2 linie górna i dolna po kliknięciu również mają animacje opoznienia 
+}
+
+
+
+.burger-btn__bars::before {
+	content: '';
+	top: -10px;
+}
+
+.burger-btn__bars::after {
+	content: '';
+	top: 10px;
+}
+
+// *******NAVI PO KLIKNIECIU W BURGERA *********
+
+// tutaj zrobilem ze po activ , czyli po kliknieciu nasza srodkowa kreska znika
+.burger-btn--active .burger-btn__bars {
+	background-color: transparent;
+	transition: transform .3s .1s ease-in-out;
+
+}
+
+.burger-btn--active {
+	transform: translatex(250px);
+}
+
+// tu bedzie akcja po hoverze , ze po kliknieciu górna kreska i dolna kreska beda się rozjeżdżać równo w górę i w dół i dodatkowo chce aby na srodku sie skrzyzowaly. UWAGA ! NAJPIERW MUSIMY PRZENOSIC NA OSI Y (TRANSLATEY) , A POTEM OBRACAC
+.burger-btn--active .burger-btn__bars::before {
+	transform: translateY(10px) rotate(45deg);
+}
+
+.burger-btn--active .burger-btn__bars::after {
+	transform: translateY(-10px) rotate(-45deg);
+}
+
+.burger-btn__bars {
+	transition: background-color .5s .3s ease-in-out;  // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
+}
+
+// UL LISTA NAVI
+.navi {
+	height: 100vh;
+	width: 250px;
+	background-color: navajowhite;
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	// Dodałem to aby nawi nie była widoczna , bo nie chce tego na stronie , dopiero po kliknieciu w Burgera. -250 px dlategp ze nasz width (szerokosc ma 250) 
+	transform: translateX(-250px);
+	
+	
+
+}
+
+.navi--active {
+
+	transform: translateX(0px);
+}
+
+.navi-list {
+	margin-top: 50px;
+	list-style: none;
+}
+
+// dodałem margin bottom , aby oddzielić jeden od drugiego 
+.navi-item {
+	text-decoration: none;
+	margin-bottom: 20px;
+
+}
+
+
+
