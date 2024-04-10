@@ -73,9 +73,11 @@ body {
 
 // **************NAVI****************
 
-.burger-btn, .navi{
-	transition: transform .3s .2s ease-in-out;
+.burger-btn,
+.navi {
+	transition: transform 0.4s 0.2s ease-in-out;
 }
+
 .burger-btn {
 	position: absolute;
 	padding: 10px;
@@ -103,21 +105,20 @@ body {
 	position: absolute;
 	right: 0;
 	top: 50%;
-	transition: background-color .5s .3s ease-in-out;  // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
+	transition: background-color 0.5s 0.3s ease-in-out; // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
 
 	transform: translateY(-50%);
 	// INCLUDE TO ZAMIESZCZANIE NASZYCH USTAWIEN DLA DANEJ SEKCJI , KTROA UTWORZYLISMY W MIXIN
 	@include burgerBtn;
 }
 
-.burger-btn__bars::before, .burger-btn__bars::after {
+.burger-btn__bars::before,
+.burger-btn__bars::after {
 	content: ''; //przy before i after zawsze musi byc content '' - bez tego nie pojawi nam się ostylowany div
 	@include burgerBtn;
 	left: 0;
-	transition: transform .3s ease-in-out; // tu dodałen że nasze 2 linie górna i dolna po kliknięciu również mają animacje opoznienia 
+	transition: transform 0.3s ease-in-out; // tu dodałen że nasze 2 linie górna i dolna po kliknięciu również mają animacje opoznienia
 }
-
-
 
 .burger-btn__bars::before {
 	content: '';
@@ -134,12 +135,12 @@ body {
 // tutaj zrobilem ze po activ , czyli po kliknieciu nasza srodkowa kreska znika
 .burger-btn--active .burger-btn__bars {
 	background-color: transparent;
-	transition: transform .3s .1s ease-in-out;
-
+	transition: transform 0.3s 0.1s ease-in-out;
 }
 
 .burger-btn--active {
-	transform: translatex(250px);
+	transform: translatex(0px);
+	z-index: 1000;
 }
 
 // tu bedzie akcja po hoverze , ze po kliknieciu górna kreska i dolna kreska beda się rozjeżdżać równo w górę i w dół i dodatkowo chce aby na srodku sie skrzyzowaly. UWAGA ! NAJPIERW MUSIMY PRZENOSIC NA OSI Y (TRANSLATEY) , A POTEM OBRACAC
@@ -152,41 +153,41 @@ body {
 }
 
 .burger-btn__bars {
-	transition: background-color .5s .3s ease-in-out;  // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
+	transition: background-color 0.5s 0.3s ease-in-out; // animacja ,że po wcisnieciu opoznia nam się troche przekladanie tych linii w burgerze
 }
 
 // UL LISTA NAVI
 .navi {
-	height: 100vh;
-	width: 250px;
-	background-color: navajowhite;
+	height: 66vh;
+	width: 500px;
+	background-color: rgba(255, 255, 255, 0.895);
 	position: absolute;
 	top: 0;
-	left: 0;
-	
-	// Dodałem to aby nawi nie była widoczna , bo nie chce tego na stronie , dopiero po kliknieciu w Burgera. -250 px dlategp ze nasz width (szerokosc ma 250) 
-	transform: translateX(-250px);
-	
-	
+	left: 5px;
 
+	// Ukrywamy nawigacje - bo ma być widoczna dopiero po kliknięciu w BTN
+	opacity: 0;
+
+	// Dodałem to aby nawi nie była widoczna , bo nie chce tego na stronie , dopiero po kliknieciu w Burgera. -250 px dlategp ze nasz width (szerokosc ma 250)
+	transform: translateX(1400px);
+
+	// robimy animacje na opacity , ze ma się pokawiać w .3s - OPACITY ustawiam po Kliknięciu na 1 czyli - navi--active
+	transition: opacity 0.4s 0.1s ease;
 }
 
 .navi--active {
-
-	transform: translateX(0px);
+	transform: translateX(1400px);
+	opacity: 1;
 }
 
 .navi-list {
+	margin: 80px;
 	margin-top: 50px;
 	list-style: none;
 }
 
-// dodałem margin bottom , aby oddzielić jeden od drugiego 
+// dodałem margin bottom , aby oddzielić jeden od drugiego
 .navi-item {
 	text-decoration: none;
 	margin-bottom: 20px;
-
 }
-
-
-
