@@ -154,7 +154,6 @@ body {
 .burger-btn__bars::after {
 	content: '';
 	top: 10px;
-	
 }
 
 // *******NAVI PO KLIKNIECIU W BURGERA *********
@@ -179,8 +178,6 @@ body {
 .burger-btn--active .burger-btn__bars::after {
 	transform: translateY(-10px) rotate(-45deg);
 	@include afterburgerbtn;
-
-	
 }
 
 .burger-btn__bars {
@@ -199,12 +196,8 @@ body {
 	// Ukrywamy nawigacje - bo ma być widoczna dopiero po kliknięciu w BTN
 	opacity: 0;
 
-	// Dodałem to aby nawi nie była widoczna , bo nie chce tego na stronie , dopiero po kliknieciu w Burgera. -250 px dlategp ze nasz width (szerokosc ma 250)
-	transform: translateX(-1400px);
-
 	// robimy animacje na opacity , ze ma się pokawiać w .3s - OPACITY ustawiam po Kliknięciu na 1 czyli - navi--active
 	transition: opacity 0.4s 0.1s ease;
-
 }
 
 // ustawiłem aby moja navi nie wychodziło w prawo , więc musi mieć 1010px . Gdyby było wiecej , to by poszerzało mi stronę i robiło białe pole
