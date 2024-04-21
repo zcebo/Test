@@ -2,10 +2,11 @@
 	"name": "website_flex",
 	"version": "1.0.0",
 	"description": "",
+	"homepage": "https://github.com/zcebo/Test",
 	"main": "index.js",
-	"deploy": "gh-pages -d dist",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"deploy": "gh-pages -d dist"
 	},
 	"keywords": [],
 	"author": "",
